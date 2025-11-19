@@ -1,0 +1,10 @@
+node_modules
+
+# 忽略apps下的node_modules
+**/node_modules/
+
+# 忽略apps下的dist
+**/dist
+
+# 忽略apps下的build
+**/build

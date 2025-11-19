@@ -1,0 +1,28 @@
+{
+  "name": "x-turborepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint"
+  },
+  "packageManager": "pnpm@10.13.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zxxj/x-turborepo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/zxxj/x-turborepo/issues"
+  },
+  "homepage": "https://github.com/zxxj/x-turborepo#readme",
+  "devDependencies": {
+    "turbo": "^2.6.1"
+  }
+}
