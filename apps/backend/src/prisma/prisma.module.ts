@@ -1,4 +1,12 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
+import { PrismaService } from './prisma.service';
+import { PrismaClient } from '@prisma/client';
 
-@Module({})
-export class PrismaModule {}
+@Module({
+  providers: [PrismaService],
+})
+export class PrismaModule extends PrismaClient implements OnModuleInit {
+  async onModuleInit() {
+    this.$connect();
+  }
+}

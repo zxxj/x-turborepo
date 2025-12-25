@@ -10,6 +10,9 @@
     "lint": "turbo run lint"
   },
   "packageManager": "pnpm@10.13.1",
+  "workspaces": [
+    "apps/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zxxj/x-turborepo.git"

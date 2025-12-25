@@ -2,65 +2,75 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client"
-  output   = "../prisma/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
-  username    String
-  email       String
-  description String?
-  avatar      String?
-  password    String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  posts       Post[]
-  comments    Comment[]
-  likes       Like[]
+  id         Int       @id @default(autoincrement()) // 主键
+  username   String    @unique // 用户名
+  password   String? // 密码
+  email      String // 邮箱
+  bio        String? // 个人简介,可选
+  avatar     String? // 头像,可选
+  articles   Article[] // 文章列表
+  comments   Comment[] // 评论列表
+  createTime DateTime  @default(now()) // 创建时间
+  updateTime DateTime  @updatedAt // 更新时间
+  likes      Like[] // 喜欢的文章列表
 }
 
-model Post {
-  id        Int       @id @default(autoincrement())
-  slug      String?   @unique
-  title     String
-  content   String
-  thumbnail String? // 缩略图 
-  published Boolean // 是否发布
-  authorId  Int
-  author    User      @relation(fields: [authorId], references: [id]) // 关联用户id
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  comments  Comment[]
-  tags      Tag[]     @relation("PostTags")
-  likes     Like[]
+model Article {
+  id         Int          @id @default(autoincrement()) // 主键
+  slug       String       @unique // 文章唯一标识,用于URL路径(/article/:slug),避免因标题修改导致链接失效
+  title      String // 文章标题
+  content    String // 文章内容
+  thumbnail  String? // 缩略图,可选
+  published  Boolean // 是否已发布(true=已发布,false=未发布)
+  authorId   Int // 文章作者的ID
+  author     User         @relation(fields: [authorId], references: [id]) // 关联用户,一个用户可以拥有多个文章
+  comments   Comment[] // 评论列表
+  tags       ArticleTag[] // 所属标签
+  likes      Like[] // 所有点赞该文章的用户
+  createTime DateTime     @default(now()) // 创建时间
+  updateTime DateTime     @updatedAt // 更新时间
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
-  content   String
-  postId    Int
-  post      Post     @relation(fields: [postId], references: [id])
-  authorId  Int
-  author    User     @relation(fields: [authorId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int      @id @default(autoincrement()) // 主键
+  content    String // 评论内容
+  articleId  Int // 对应文章ID
+  article    Article  @relation(fields: [articleId], references: [id]) // 关联文章,一个文章可以拥有多条评论
+  authorId   Int // 作者ID
+  author     User     @relation(fields: [authorId], references: [id]) // 关联用户, 一个用户可以拥有多条评论
+  createTime DateTime @default(now()) // 创建时间
+  updateTime DateTime @updatedAt // 更新时间
 }
 
 model Tag {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  posts Post[] @relation("PostTags")
+  id       Int          @id @default(autoincrement()) // 主键
+  name     String       @unique // 标签名称
+  articles ArticleTag[]
+}
+
+model ArticleTag {
+  articleId  Int
+  tagId      Int
+  article    Article  @relation(fields: [articleId], references: [id])
+  tag        Tag      @relation(fields: [tagId], references: [id])
+  createTime DateTime @default(now()) // 绑定时间
+
+  @@id([articleId, tagId]) // 复合主键,防止重复绑定
 }
 
 model Like {
-  id     Int  @id @default(autoincrement())
-  userId Int
-  postId Int
-  user   User @relation(fields: [userId], references: [id])
-  post   Post @relation(fields: [postId], references: [id])
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  articleId Int
+  user      User    @relation(fields: [userId], references: [id]) // 关联用户,一个用户可以喜欢多篇文章
+  article   Article @relation(fields: [articleId], references: [id]) // 关联文章,一篇文章可以被多个用户喜欢
 }
