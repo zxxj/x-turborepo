@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 const main = async () => {
   const users = Array.from({ length: 10 }).map(() => ({
     username: faker.person.fullName(),
+    password: '123',
     email: faker.internet.email(),
     bio: faker.lorem.sentence(),
     avatar: faker.image.avatar(),

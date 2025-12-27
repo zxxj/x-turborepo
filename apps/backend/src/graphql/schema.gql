@@ -56,15 +56,16 @@ type ArticleEntity {
   likes: [LikeEntity!]!
 }
 
-type Auth {
-  """Example field (placeholder)"""
-  exampleField: Int!
+type SignInResponse {
+  id: Int!
+  username: String!
+  avatar: String
+  accessToken: String!
 }
 
 type Query {
   articles: [ArticleEntity!]!
   tag(id: Int!): TagEntity!
-  auth(id: Int!): Auth!
 }
 
 type Mutation {
@@ -72,9 +73,7 @@ type Mutation {
   createTag(createTagInput: CreateTagInput!): TagEntity!
   updateTag(updateTagInput: UpdateTagInput!): TagEntity!
   removeTag(id: Int!): TagEntity!
-  createAuth(createAuthInput: CreateAuthInput!): Auth!
-  updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
-  removeAuth(id: Int!): Auth!
+  signIn(signInInput: SignInInput!): SignInResponse!
 }
 
 input CreateUserInput {
@@ -96,13 +95,7 @@ input UpdateTagInput {
   id: Int!
 }
 
-input CreateAuthInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateAuthInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+input SignInInput {
+  email: String!
+  password: String!
 }

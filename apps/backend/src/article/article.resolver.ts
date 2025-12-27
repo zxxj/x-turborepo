@@ -1,16 +1,17 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { ArticleService } from './article.service';
+import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { ArticleEntity } from './entities/article.entity';
-import { CreateArticleInput } from './dto/create-article.input';
-import { UpdateArticleInput } from './dto/update-article.input';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 
 @Resolver(() => ArticleEntity)
 export class ArticleResolver {
   constructor(private prisma: PrismaService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Query(() => [ArticleEntity], { name: 'articles' })
-  findAll() {
+  findAll(@Context() context) {
+    console.log(context.req.user);
     return this.prisma.article.findMany();
   }
 }
