@@ -9,7 +9,7 @@ import {
 
 const Navbar = () => {
   return (
-    <div className="w-full h-14 border-b flex items-center justify-between px-5">
+    <div className="w-full h-full border-b flex items-center justify-between px-5">
       <div>logo</div>
       <div className="flex">
         <Tooltip>
