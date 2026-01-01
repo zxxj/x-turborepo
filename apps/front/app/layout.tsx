@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 
 import './globals.css';
 import Navbar from '@/components/navbar';
+import Ribbons from '@/components/ribbons';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -39,7 +40,19 @@ export default function RootLayout({
           <header className=" fixed top-0 left-0 w-full h-14 z-50 dark:bg-[#0a0a0a] bg-white">
             <Navbar />
           </header>
+
           {children}
+
+          <div className="fixed inset-0 z-40  pointer-events-none">
+            <Ribbons
+              baseThickness={30}
+              colors={['#ffffff']}
+              speedMultiplier={0.5}
+              maxAge={500}
+              enableFade={false}
+              enableShaderEffect={true}
+            />
+          </div>
         </ThemeProvider>
       </body>
     </html>

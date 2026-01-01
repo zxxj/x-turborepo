@@ -1,6 +1,5 @@
 'use client';
-
-import ModeToggle from './mode-toggle';
+import { AnimatedThemeToggler } from '@/components/ui/animated-theme-toggler';
 import { Button } from './ui/button';
 import { House, BookOpenText, LogIn } from 'lucide-react';
 import {
@@ -47,8 +46,10 @@ const Navbar = () => {
                 <Button
                   variant="ghost"
                   className={`${
-                    currentPath == item.href ? 'bg-[#181818]' : ''
-                  }`}
+                    currentPath == item.href
+                      ? 'bg-[#f5f5f5] dark:bg-[#181818]'
+                      : ''
+                  } cursor-pointer`}
                 >
                   {item.icon}
                   {item.index}
@@ -61,7 +62,7 @@ const Navbar = () => {
           </Tooltip>
         ))}
 
-        <ModeToggle />
+        <AnimatedThemeToggler />
       </div>
     </div>
   );
