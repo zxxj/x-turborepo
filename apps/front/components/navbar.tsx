@@ -1,3 +1,5 @@
+'use client';
+
 import ModeToggle from './mode-toggle';
 import { Button } from './ui/button';
 import { House, BookOpenText, LogIn } from 'lucide-react';
@@ -6,46 +8,58 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
+  // 默认选中状态
+  const currentPath = usePathname();
+
+  const items = [
+    {
+      index: 'home',
+      icon: <House />,
+      tip: 'home!',
+      href: '/',
+    },
+    {
+      index: 'articles',
+      icon: <BookOpenText />,
+      tip: 'article!',
+      href: '/article',
+    },
+    {
+      index: 'sigIn',
+      icon: <LogIn />,
+      tip: 'sigIn!',
+      href: '',
+    },
+  ];
+
   return (
     <div className="w-full h-full border-b flex items-center justify-between px-5">
       <div>logo</div>
       <div className="flex">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost">
-              <House /> home
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>首页介绍哈哈哈哈</p>
-          </TooltipContent>
-        </Tooltip>
-
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost">
-              <BookOpenText />
-              articles
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>一些文章哈哈哈</p>
-          </TooltipContent>
-        </Tooltip>
-
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost">
-              <LogIn />
-              sigIn
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>快去登录哈哈</p>
-          </TooltipContent>
-        </Tooltip>
+        {items.map((item) => (
+          <Tooltip key={item.index}>
+            <TooltipTrigger asChild>
+              <Link href={item.href}>
+                <Button
+                  variant="ghost"
+                  className={`${
+                    currentPath == item.href ? 'bg-[#181818]' : ''
+                  }`}
+                >
+                  {item.icon}
+                  {item.index}
+                </Button>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{item.tip}</p>
+            </TooltipContent>
+          </Tooltip>
+        ))}
 
         <ModeToggle />
       </div>
