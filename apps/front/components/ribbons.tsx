@@ -33,7 +33,6 @@ const Ribbons: React.FC<RibbonsProps> = ({
   backgroundColor = [0, 0, 0, 0],
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  console.log(colors);
   /** 防止 StrictMode 下重复初始化 */
   const initializedRef = useRef(false);
 
