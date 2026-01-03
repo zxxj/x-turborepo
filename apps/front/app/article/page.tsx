@@ -1,4 +1,9 @@
-const Article: React.FC = () => {
+import { fetchArticles } from '@/service/article';
+
+const Article: React.FC = async () => {
+  const articles = await fetchArticles();
+  console.log(articles);
+
   return (
     <main className="w-full h-[calc(100%-57px)] mt-16">
       <div className="relative max-w-350 mx-10">
