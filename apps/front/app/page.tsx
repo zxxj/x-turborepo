@@ -2,7 +2,7 @@ import Discription from './home/discription';
 
 export default function Home() {
   return (
-    <main className=" w-full h-[calc(100%-57px)] mt-16">
+    <main className=" w-full h-full">
       <div className="h-full">
         <Discription />
 

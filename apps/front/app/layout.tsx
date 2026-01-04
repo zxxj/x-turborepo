@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen h-screen overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased  overflow-x-hidden`}
       >
         <ThemeProvider
           attribute="class"
@@ -41,7 +41,7 @@ export default function RootLayout({
             <Navbar />
           </header>
 
-          {children}
+          <div className="h-[calc(100vh-57px)] mt-14.25">{children}</div>
 
           <div className="fixed inset-0 z-40  pointer-events-none">
             <Ribbons
