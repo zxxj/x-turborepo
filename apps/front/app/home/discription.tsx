@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { motion, cubicBezier } from 'motion/react';
 import { useEffect, useState } from 'react';
+import { AnimatedShinyText } from '@/components/ui/animated-shiny-text';
 
 const Discription = () => {
   // 监听滚动,控制down图标状态
@@ -65,7 +66,9 @@ const Discription = () => {
           </motion.p>
 
           <motion.p className="lg:text-xl text-muted-foreground leading-none">
-            learning, building, and documenting.
+            <AnimatedShinyText>
+              learning, building, and documenting.
+            </AnimatedShinyText>
           </motion.p>
 
           <motion.ul className="flex justify-end items-center lg:top-0 relative top-3">

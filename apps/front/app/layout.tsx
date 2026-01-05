@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
 
 import './globals.css';
 import Navbar from '@/components/navbar';
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased  overflow-x-hidden`}
       >
+        <Toaster />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -41,7 +43,7 @@ export default function RootLayout({
             <Navbar />
           </header>
 
-          <div className="h-[calc(100vh-57px)] mt-14.25">{children}</div>
+          <div className="h-[calc(100vh-57px)] mt-14.25 ">{children}</div>
 
           <div className="fixed inset-0 z-40  pointer-events-none">
             <Ribbons

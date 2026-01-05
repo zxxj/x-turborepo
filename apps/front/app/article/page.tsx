@@ -1,21 +1,21 @@
 import { fetchArticles } from '@/service/article';
+import ArticleSection from './articleSection';
+import CategorySection from './categorySection';
+export const dynamic = 'force-dynamic';
 
-const Article: React.FC = async () => {
-  const articles = await fetchArticles();
-  console.log(articles);
+const Article = async () => {
+  const { articles, totalCount } = await fetchArticles({});
 
   return (
-    <main className="w-full h-[calc(100%-57px)] mt-16">
-      <div className="relative max-w-350 mx-10">
-        {/* 占位（参与布局） */}
-        <div className="w-56 shrink-0" />
-
-        {/* 真正 fixed 的侧栏 */}
-        <div className="fixed top-1/2 -translate-y-1/2 w-56 h-3/4 border border-white rounded-sm">
-          1
+    <main className="w-full flex justify-center ">
+      <div className="flex w-full max-w-full lg:max-w-2/3 mt-10 mb-24">
+        <div className="flex-1 mx-10">
+          <ArticleSection initialArticles={articles} totalCount={totalCount} />
         </div>
-        {/* 右侧内容 */}
-        <div className="ml-70 border border-white rounded-sm">2</div>
+
+        <div className="w-64 mt-20 hidden lg:block fixed right-40">
+          <CategorySection />
+        </div>
       </div>
     </main>
   );
