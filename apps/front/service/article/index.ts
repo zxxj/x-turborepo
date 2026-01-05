@@ -4,9 +4,14 @@ import { print } from 'graphql';
 import { fetchGraphQL } from '../fetchGraphQL';
 import { getArticles } from './getQueries';
 
-export const fetchArticles = async () => {
-  const data = await fetchGraphQL(print(getArticles));
-  console.log(data);
+export const fetchArticles = async ({
+  pageNumber = 1,
+  pageSize = 10,
+}: {
+  pageNumber?: number;
+  pageSize?: number;
+}) => {
+  const data = await fetchGraphQL(print(getArticles), { pageNumber, pageSize });
 
-  return data.articles;
+  return { articles: data.articles, totalCount: data.totalCount };
 };

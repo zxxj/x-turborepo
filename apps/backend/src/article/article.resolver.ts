@@ -1,17 +1,25 @@
 import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { ArticleEntity } from './entities/article.entity';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
+import { ArticleService } from './article.service';
 
 @Resolver(() => ArticleEntity)
 export class ArticleResolver {
-  constructor(private prisma: PrismaService) {}
+  constructor(private articleService: ArticleService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Query(() => [ArticleEntity], { name: 'articles' })
-  findAll(@Context() context) {
+  async findAll(
+    @Context() context,
+    @Args('pageNumber', { nullable: true }) pageNumber?: number,
+    @Args('pageSize', { nullable: true }) pageSize?: number,
+  ) {
     console.log(context.req.user);
-    return this.prisma.article.findMany();
+    return await this.articleService.findAll({ pageNumber, pageSize });
+  }
+
+  @Query(() => Int, { name: 'totalCount' })
+  async totalCount() {
+    return await this.articleService.findAllCount();
   }
 }

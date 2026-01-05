@@ -64,7 +64,8 @@ type SignInResponse {
 }
 
 type Query {
-  articles: [ArticleEntity!]!
+  articles(pageNumber: Float, pageSize: Float): [ArticleEntity!]!
+  totalCount: Int!
   tag(id: Int!): TagEntity!
 }
 

@@ -1,10 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { CreateArticleInput } from './dto/create-article.input';
-import { UpdateArticleInput } from './dto/update-article.input';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ArticleService {
-  findAll() {
-    return `This action returns all article`;
+  constructor(private prisma: PrismaService) {}
+  findAll({
+    pageNumber = 1,
+    pageSize = 10,
+  }: {
+    pageNumber?: number;
+    pageSize?: number;
+  }) {
+    return this.prisma.article.findMany({
+      skip: (pageNumber - 1) * pageSize,
+      take: pageSize,
+    });
+  }
+
+  // 查询文章总条数
+  findAllCount() {
+    return this.prisma.article.count();
   }
 }
