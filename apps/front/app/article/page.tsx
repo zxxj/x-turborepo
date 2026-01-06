@@ -8,8 +8,8 @@ const Article = async () => {
 
   return (
     <main className="w-full flex justify-center ">
-      <div className="flex w-full max-w-full lg:max-w-2/3 mt-10 mb-24">
-        <div className="flex-1 mx-10">
+      <div className="flex w-full ">
+        <div className="flex-1 px-5">
           <ArticleSection initialArticles={articles} totalCount={totalCount} />
         </div>
 

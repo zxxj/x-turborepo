@@ -6,11 +6,13 @@ import { ArticleSectionProps } from './index';
 import { fetchArticles } from '@/service/article';
 import { ShinyButton } from '@/components/ui/shiny-button';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 const ArticleSection = ({
   initialArticles,
   totalCount,
 }: ArticleSectionProps) => {
+  const router = useRouter();
   const [pageNumber, setPageNumber] = useState(2);
   const [articleList, setArticleList] = useState(initialArticles);
 
@@ -33,7 +35,7 @@ const ArticleSection = ({
   };
 
   const handleClick = (id: number): void => {
-    console.log(id);
+    router.push(`/article/${id}`);
   };
   return (
     <>
@@ -41,7 +43,7 @@ const ArticleSection = ({
       {articleList.map((item) => (
         <div className="group w-full mb-14" key={item.id}>
           <h2
-            className="text-2xl font-bold border-b-2 hover:border-white inline-block border-transparent cursor-pointer"
+            className="text-2xl font-bold border-b-2 dark:hover:border-white hover:border-black inline-block border-transparent cursor-pointer"
             onClick={() => handleClick(item.id)}
           >
             {item.title}
@@ -54,7 +56,7 @@ const ArticleSection = ({
         </div>
       ))}
 
-      <div className="w-full flex justify-center">
+      <div className="lg:w-full flex justify-center">
         <ShinyButton onClick={loadMore}>load more.</ShinyButton>
       </div>
     </>

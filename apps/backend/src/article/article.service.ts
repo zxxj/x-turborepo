@@ -21,4 +21,17 @@ export class ArticleService {
   findAllCount() {
     return this.prisma.article.count();
   }
+
+  // 查询文章详情
+  findOne(id: number) {
+    return this.prisma.article.findFirst({
+      where: {
+        id,
+      },
+      include: {
+        author: true,
+        tags: true,
+      },
+    });
+  }
 }

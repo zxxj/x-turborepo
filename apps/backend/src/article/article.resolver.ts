@@ -22,4 +22,9 @@ export class ArticleResolver {
   async totalCount() {
     return await this.articleService.findAllCount();
   }
+
+  @Query(() => ArticleEntity)
+  async getArticleById(@Args('id', { type: () => Int }) id: number) {
+    return await this.articleService.findOne(id);
+  }
 }

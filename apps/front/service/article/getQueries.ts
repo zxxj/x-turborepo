@@ -1,16 +1,41 @@
 import gql from 'graphql-tag';
 
-export const getArticles = gql`
+export const GET_ARTICLE_LIST = gql`
   query ($pageNumber: Float, $pageSize: Float) {
     articles(pageNumber: $pageNumber, pageSize: $pageSize) {
       id
-      title
       slug
+      title
       content
+      thumbnail
+      published
       createTime
       updateTime
     }
 
     totalCount
+  }
+`;
+
+export const GET_ARTICLE_BY_ID = gql`
+  query ($id: Int!) {
+    getArticleById(id: $id) {
+      id
+      title
+      slug
+      content
+      thumbnail
+      published
+      createTime
+      updateTime
+      author {
+        id
+        username
+      }
+      tags {
+        id
+        name
+      }
+    }
   }
 `;
