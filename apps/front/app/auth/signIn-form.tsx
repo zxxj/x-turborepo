@@ -19,6 +19,8 @@ import { toast } from 'sonner';
 import { UserInfoType } from './type';
 import { setLoginCookie } from './auth';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { Spinner } from '@/components/ui/spinner';
 
 const schema = z.object({
   email: z.string().email('请输入正确邮箱'),
@@ -32,6 +34,7 @@ interface Props {
 }
 
 export default function SignInForm({ onSuccess }: Props) {
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const form = useForm<FormValues>({
@@ -43,6 +46,7 @@ export default function SignInForm({ onSuccess }: Props) {
   });
 
   const onSubmit = async (values: FormValues) => {
+    setLoading(true);
     try {
       const userInfo: UserInfoType = await SignIn({
         email: values.email,
@@ -54,6 +58,8 @@ export default function SignInForm({ onSuccess }: Props) {
       onSuccess?.(userInfo); // ⭐ 登录成功通知外部
     } catch (error) {
       toast.error(`登录失败:${error}`, { position: 'top-center' });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -88,9 +94,17 @@ export default function SignInForm({ onSuccess }: Props) {
           )}
         />
 
-        <Button type="submit" className="w-full">
-          Confirm
-        </Button>
+        <div className="w-full flex justify-center">
+          <Button
+            type="submit"
+            disabled={loading}
+            variant="secondary"
+            className="w-[70%]"
+          >
+            {loading ? <Spinner /> : ''}
+            {loading ? 'Confirm~' : 'Confirm'}
+          </Button>
+        </div>
       </form>
     </Form>
   );

@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 import { LogOut } from 'lucide-react';
 import { useState } from 'react';
 import {
@@ -13,15 +14,24 @@ import {
 } from '@/components/ui/dialog';
 import { signOutAction } from './auth';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export default function SignInButtonClient() {
   const router = useRouter();
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSignOut = async () => {
-    await signOutAction();
-    setVisible(false);
-    router.push('/');
+    setLoading(true);
+    try {
+      await signOutAction();
+      router.refresh();
+      setVisible(false);
+    } catch (error) {
+      toast.error(`异常:${error}`, { position: 'top-center' });
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <>
@@ -39,8 +49,17 @@ export default function SignInButtonClient() {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button onClick={handleSignOut}>confirm</Button>
-            <Button onClick={() => setVisible(false)}>cancel</Button>
+            <Button
+              variant="secondary"
+              onClick={handleSignOut}
+              disabled={loading}
+            >
+              {loading ? <Spinner /> : ''}
+              confirm
+            </Button>
+            <Button variant="secondary" onClick={() => setVisible(false)}>
+              cancel
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
