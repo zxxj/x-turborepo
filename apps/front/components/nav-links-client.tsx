@@ -35,7 +35,7 @@ export default function NavLinks() {
                   currentPath === item.href
                     ? 'bg-[#f5f5f5] dark:bg-[#181818]'
                     : ''
-                }`}
+                }  cursor-pointer`}
               >
                 {item.icon}
                 {item.index}

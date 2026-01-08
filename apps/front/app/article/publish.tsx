@@ -83,7 +83,7 @@ const PublishArticlePage = () => {
     <>
       <Drawer onClose={onDrawerClose} open={visible} onOpenChange={setVisible}>
         <DrawerTrigger asChild>
-          <Button variant="ghost" className="flex items-center">
+          <Button variant="ghost" className="flex items-center cursor-pointer">
             <SquarePen />
             publish
           </Button>

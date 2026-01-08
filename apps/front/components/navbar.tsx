@@ -18,7 +18,7 @@ export default async function Navbar() {
         <NavLinks />
         {isLogin ? <PublishArticlePage /> : ''}
         {isLogin ? <SignOutButton /> : <SignInButton />}
-        <AnimatedThemeToggler />
+        <AnimatedThemeToggler className="cursor-pointer" />
       </div>
     </div>
   );

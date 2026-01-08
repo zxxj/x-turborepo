@@ -10,7 +10,11 @@ export default function SignInButtonClient() {
 
   return (
     <>
-      <Button variant="ghost" onClick={() => setVisible(true)}>
+      <Button
+        variant="ghost"
+        className="cursor-pointer"
+        onClick={() => setVisible(true)}
+      >
         <LogIn />
         Sign In
       </Button>
