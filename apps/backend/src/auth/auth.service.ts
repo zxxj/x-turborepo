@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { SignInInput } from './dto/signIn.input';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { verify } from 'argon2';
+import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 
@@ -23,7 +23,7 @@ export class AuthService {
       throw new UnauthorizedException('邮箱不存在,请重试!');
     }
 
-    const passwordMatched = await verify(user.password, password);
+    const passwordMatched = await bcrypt.compare(password, user.password);
 
     if (!passwordMatched) {
       throw new UnauthorizedException('密码不正确,请重新输入!');
