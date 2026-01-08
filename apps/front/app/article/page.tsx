@@ -5,7 +5,6 @@ export const dynamic = 'force-dynamic';
 
 const Article = async () => {
   const { articles, totalCount } = await fetchArticles({});
-
   return (
     <main className="w-full flex justify-center ">
       <div className="flex w-full ">

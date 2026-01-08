@@ -1,15 +1,23 @@
 import NavLinks from './nav-links-client';
-import AuthGate from '@/app/auth/auth-gate';
 import { AnimatedThemeToggler } from '@/components/ui/animated-theme-toggler';
+import { cookies } from 'next/headers';
+import PublishArticlePage from '@/app/article/publish';
+import SignInButton from '@/app/auth/signIn-button';
+import SignOutButton from '@/app/auth/signOut-button';
 
 export default async function Navbar() {
-  return (
-    <div className="w-full h-full border-b flex items-center justify-between px-5">
-      <div>logo</div>
+  const cookieStore = await cookies();
+  console.log(cookieStore);
+  const isLogin = cookieStore.has('access_token');
 
-      <div className="flex items-center gap-2">
+  return (
+    <div className="w-full h-full border-b flex items-center justify-center lg:justify-between px-5">
+      <div></div>
+
+      <div className="flex items-center lg:gap-2">
         <NavLinks />
-        <AuthGate />
+        {isLogin ? <PublishArticlePage /> : ''}
+        {isLogin ? <SignOutButton /> : <SignInButton />}
         <AnimatedThemeToggler />
       </div>
     </div>

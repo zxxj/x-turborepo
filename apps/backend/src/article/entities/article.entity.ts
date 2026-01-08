@@ -12,10 +12,10 @@ export class ArticleEntity {
   @Field({ nullable: true })
   title: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   slug?: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   thumbnail?: string;
 
   @Field()

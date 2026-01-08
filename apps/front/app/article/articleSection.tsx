@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { InteractiveHoverButton } from '@/components/ui/interactive-hover-button';
-import { ArticleSectionProps } from './index';
+import { ArticleSectionProps } from './type';
 import { fetchArticles } from '@/service/article';
 import { ShinyButton } from '@/components/ui/shiny-button';
 import { toast } from 'sonner';
@@ -30,8 +30,6 @@ const ArticleSection = ({
 
       setArticleList((prev) => [...prev, ...articles]);
     }
-
-    console.log(articleList);
   };
 
   const handleClick = (id: number): void => {

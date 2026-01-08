@@ -14,6 +14,12 @@ export async function setLoginCookie(user: UserInfoType) {
   });
 }
 
+export async function getToken() {
+  const cookieStore = await cookies();
+
+  return cookieStore.get('access_token');
+}
+
 export async function signOutAction() {
   const cookieStore = await cookies();
 

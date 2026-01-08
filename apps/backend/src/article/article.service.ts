@@ -1,5 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateArticleInput } from './dto/create-article.input';
 
 @Injectable()
 export class ArticleService {
@@ -11,9 +13,11 @@ export class ArticleService {
     pageNumber?: number;
     pageSize?: number;
   }) {
+    console.log(pageNumber, pageSize);
     return this.prisma.article.findMany({
       skip: (pageNumber - 1) * pageSize,
       take: pageSize,
+      orderBy: [{ createTime: 'desc' }],
     });
   }
 
@@ -31,6 +35,15 @@ export class ArticleService {
       include: {
         author: true,
         tags: true,
+      },
+    });
+  }
+
+  async create(createArticleInput: CreateArticleInput, userId: number) {
+    return await this.prisma.article.create({
+      data: {
+        ...createArticleInput,
+        authorId: userId,
       },
     });
   }

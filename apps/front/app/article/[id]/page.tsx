@@ -11,8 +11,8 @@ interface Props {
 
 const ArticlePage = async ({ params }: Props) => {
   const articleId = (await params).id;
-
   const article = await fetchArticleById(Number(articleId));
+
   return (
     <>
       <div className="w-full h-full">
@@ -22,7 +22,7 @@ const ArticlePage = async ({ params }: Props) => {
           {formatDateTime(article.createTime)}
         </div>
 
-        <MyEditor />
+        <MyEditor value={JSON.parse(article.content)} />
       </div>
     </>
   );

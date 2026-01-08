@@ -2,8 +2,12 @@
 
 import { print } from 'graphql';
 import { fetchGraphQL } from '../fetchGraphQL';
-import { GET_ARTICLE_BY_ID, GET_ARTICLE_LIST } from './getQueries';
-import { ArticleType } from '@/app/article';
+import {
+  CREATE_ARTICLE,
+  GET_ARTICLE_BY_ID,
+  GET_ARTICLE_LIST,
+} from './getQueries';
+import { ArticleType } from '@/app/article/type';
 
 export const fetchArticles = async ({
   pageNumber = 1,
@@ -24,4 +28,17 @@ export const fetchArticleById = async (id: number) => {
   const data = await fetchGraphQL(print(GET_ARTICLE_BY_ID), { id });
 
   return data.getArticleById as ArticleType;
+};
+
+interface CreateArticleType {
+  title: string;
+  slug?: string;
+  content: string;
+}
+export const createArticle = async (createArticleInput: CreateArticleType) => {
+  const data = await fetchGraphQL(print(CREATE_ARTICLE), {
+    createArticleInput,
+  });
+
+  return data;
 };

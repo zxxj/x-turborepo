@@ -26,11 +26,11 @@ model User {
 
 model Article {
   id         Int          @id @default(autoincrement()) // 主键
-  slug       String?      @unique // 文章唯一标识,用于URL路径(/article/:slug),避免因标题修改导致链接失效
+  slug       String? // 文章唯一标识,用于URL路径(/article/:slug),避免因标题修改导致链接失效
   title      String // 文章标题
   content    String // 文章内容
   thumbnail  String? // 缩略图,可选
-  published  Boolean // 是否已发布(true=已发布,false=未发布)
+  published  Boolean      @default(true) // 是否已发布(true=已发布,false=未发布)
   authorId   Int // 文章作者的ID
   author     User         @relation(fields: [authorId], references: [id]) // 关联用户,一个用户可以拥有多个文章
   comments   Comment[] // 评论列表

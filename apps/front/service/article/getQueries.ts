@@ -39,3 +39,13 @@ export const GET_ARTICLE_BY_ID = gql`
     }
   }
 `;
+
+export const CREATE_ARTICLE = gql`
+  mutation CreateArticle($createArticleInput: CreateArticleInput!) {
+    createArticle(createArticleInput: $createArticleInput) {
+      title
+      slug
+      content
+    }
+  }
+`;
