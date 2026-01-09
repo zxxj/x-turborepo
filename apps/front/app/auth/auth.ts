@@ -8,7 +8,8 @@ export async function setLoginCookie(user: UserInfoType) {
 
   cookieStore.set('access_token', user.accessToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    // secure: process.env.NODE_ENV === 'production', // HTTP下,cookie刷新就没
+    secure: false,
     sameSite: 'lax',
     path: '/',
   });

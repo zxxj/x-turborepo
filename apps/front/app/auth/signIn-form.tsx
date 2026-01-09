@@ -102,7 +102,7 @@ export default function SignInForm({ onSuccess }: Props) {
             className="w-[70%]"
           >
             {loading ? <Spinner /> : ''}
-            {loading ? 'Confirm~' : 'Confirm'}
+            {loading ? 'Sign in~' : 'Sign in'}
           </Button>
         </div>
       </form>
