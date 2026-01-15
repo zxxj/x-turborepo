@@ -49,3 +49,20 @@ export const CREATE_ARTICLE = gql`
     }
   }
 `;
+
+export const UPDATE_ARTICLE = gql`
+  mutation UpdateArticle(
+    $articleId: Int!
+    $updateArticleInput: UpdateArticleInput!
+  ) {
+    updateArticle(
+      articleId: $articleId
+      updateArticleInput: $updateArticleInput
+    ) {
+      id
+      title
+      slug
+      content
+    }
+  }
+`;

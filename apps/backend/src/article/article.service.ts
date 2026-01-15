@@ -1,7 +1,7 @@
 import { Injectable, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateArticleInput } from './dto/create-article.input';
+import { UpdateArticleInput } from './dto/update-article.input';
 
 @Injectable()
 export class ArticleService {
@@ -39,10 +39,28 @@ export class ArticleService {
     });
   }
 
+  // 创建文章
   async create(createArticleInput: CreateArticleInput, userId: number) {
     return await this.prisma.article.create({
       data: {
         ...createArticleInput,
+        authorId: userId,
+      },
+    });
+  }
+
+  // 更新文航
+  async update(
+    articleId: number,
+    updateArticleInput: UpdateArticleInput,
+    userId: number,
+  ) {
+    return await this.prisma.article.update({
+      where: {
+        id: articleId,
+      },
+      data: {
+        ...updateArticleInput,
         authorId: userId,
       },
     });

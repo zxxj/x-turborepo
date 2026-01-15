@@ -41,13 +41,15 @@ const ArticleSection = ({
       {articleList.map((item) => (
         <div className="group w-full mb-14" key={item.id}>
           <h2
-            className="text-2xl font-bold border-b-2 dark:hover:border-white hover:border-black inline-block border-transparent cursor-pointer"
+            className="text-xl font-bold border-b-2 dark:hover:border-white hover:border-black inline-block border-transparent cursor-pointer"
             onClick={() => handleClick(item.id)}
           >
             {item.title}
           </h2>
 
-          <p className="mr-0 lg:mr-40 my-4">{item.slug}</p>
+          <p className="mr-0 lg:mr-40 my-4 text-[#8b919e] text-sm ">
+            {item.slug}
+          </p>
           <InteractiveHoverButton onClick={() => handleClick(item.id)}>
             read more
           </InteractiveHoverButton>

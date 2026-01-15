@@ -72,6 +72,7 @@ type Query {
 
 type Mutation {
   createArticle(createArticleInput: CreateArticleInput!): ArticleEntity!
+  updateArticle(articleId: Int!, updateArticleInput: UpdateArticleInput!): ArticleEntity!
   createUser(createUserInput: CreateUserInput!): UserEntity!
   createTag(createTagInput: CreateTagInput!): TagEntity!
   updateTag(updateTagInput: UpdateTagInput!): TagEntity!
@@ -80,6 +81,14 @@ type Mutation {
 }
 
 input CreateArticleInput {
+  title: String!
+  slug: String
+  content: String!
+  thumbnail: String
+  published: Boolean
+}
+
+input UpdateArticleInput {
   title: String!
   slug: String
   content: String!

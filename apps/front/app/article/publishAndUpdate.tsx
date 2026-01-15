@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Spinner } from '@/components/ui/spinner';
 
 import {
@@ -28,7 +28,7 @@ import {
 } from '@/components/ui/form';
 import { SquarePen } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
-import { createArticle } from '@/service/article';
+import { createArticle, updateArticle } from '@/service/article';
 
 const schema = z.object({
   title: z.string().min(6, '文章标题至少6位!'),
@@ -37,7 +37,21 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-const PublishArticlePage = () => {
+// 编辑文章
+type EditorType = {
+  value?: Value;
+  title?: string;
+  slug?: string;
+  articleId?: number;
+};
+
+const publishAndUpdatePage = ({
+  value,
+  title,
+  slug,
+  articleId,
+}: EditorType) => {
+  const [text, setText] = useState('publish');
   const [visible, setVisible] = useState(false);
   const initialValue: Value = [
     {
@@ -57,17 +71,42 @@ const PublishArticlePage = () => {
     },
   });
 
+  // 编辑文章
+  useEffect(() => {
+    if (value) {
+      setText('update');
+      setEditorValue(value);
+      form.setValue('title', title as string);
+      form.setValue('slug', slug as string);
+    } else {
+      setEditorValue(initialValue);
+      form.reset();
+    }
+  }, [visible]);
+
   const onSubmit = async (values: FormValues) => {
     setLoading(true);
     try {
-      await createArticle({
-        title: values.title,
-        slug: values.slug,
-        content: JSON.stringify(editorValue),
-      });
+      if (!value) {
+        // 创建文章
+        await createArticle({
+          title: values.title,
+          slug: values.slug,
+          content: JSON.stringify(editorValue),
+        });
+        toast.error(`文章创建成功!`, { position: 'top-center' });
+      } else {
+        // 更新文章
+        await updateArticle(articleId as number, {
+          title: values.title,
+          slug: values.slug,
+          content: JSON.stringify(editorValue),
+        });
+        toast.error(`文章更新成功!`, { position: 'top-center' });
+      }
+
       setVisible(false);
       onDrawerClose();
-      toast.error(`文章创建成功!`, { position: 'top-center' });
     } catch (error) {
       toast.error(`文章创建失败:${error}`, { position: 'top-center' });
     } finally {
@@ -76,8 +115,12 @@ const PublishArticlePage = () => {
   };
 
   const onDrawerClose = () => {
-    setEditorValue([]);
-    form.reset();
+    // 新建文章才清空,编辑文章保留数据
+    if (!value) {
+      setEditorValue([]);
+      form.reset();
+      setText('publish');
+    }
   };
   return (
     <>
@@ -85,7 +128,7 @@ const PublishArticlePage = () => {
         <DrawerTrigger asChild>
           <Button variant="ghost" className="flex items-center cursor-pointer">
             <SquarePen />
-            publish
+            {text}
           </Button>
         </DrawerTrigger>
         <DrawerContent>
@@ -157,4 +200,4 @@ const PublishArticlePage = () => {
   );
 };
 
-export default PublishArticlePage;
+export default publishAndUpdatePage;

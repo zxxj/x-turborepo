@@ -6,6 +6,7 @@ import {
   CREATE_ARTICLE,
   GET_ARTICLE_BY_ID,
   GET_ARTICLE_LIST,
+  UPDATE_ARTICLE,
 } from './getQueries';
 import { ArticleType } from '@/app/article/type';
 
@@ -38,6 +39,23 @@ interface CreateArticleType {
 export const createArticle = async (createArticleInput: CreateArticleType) => {
   const data = await fetchGraphQL(print(CREATE_ARTICLE), {
     createArticleInput,
+  });
+
+  return data;
+};
+
+interface UpdateArticleType {
+  title: string;
+  slug?: string;
+  content: string;
+}
+export const updateArticle = async (
+  articleId: number,
+  updateArticleInput: UpdateArticleType,
+) => {
+  const data = await fetchGraphQL(print(UPDATE_ARTICLE), {
+    articleId,
+    updateArticleInput,
   });
 
   return data;

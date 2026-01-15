@@ -1,7 +1,7 @@
 import NavLinks from './nav-links-client';
 import { AnimatedThemeToggler } from '@/components/ui/animated-theme-toggler';
 import { cookies } from 'next/headers';
-import PublishArticlePage from '@/app/article/publish';
+import PublishAndUpdate from '@/app/article/publishAndUpdate';
 import SignInButton from '@/app/auth/signIn-button';
 import SignOutButton from '@/app/auth/signOut-button';
 
@@ -16,7 +16,7 @@ export default async function Navbar() {
 
       <div className="flex items-center lg:gap-2">
         <NavLinks />
-        {isLogin ? <PublishArticlePage /> : ''}
+        {isLogin ? <PublishAndUpdate /> : ''}
         {isLogin ? <SignOutButton /> : <SignInButton />}
         <AnimatedThemeToggler className="cursor-pointer" />
       </div>

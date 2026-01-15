@@ -4,6 +4,7 @@ import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 import { ArticleService } from './article.service';
 import { CreateArticleInput } from './dto/create-article.input';
+import { UpdateArticleInput } from './dto/update-article.input';
 
 @Resolver(() => ArticleEntity)
 export class ArticleResolver {
@@ -38,5 +39,17 @@ export class ArticleResolver {
     console.log('context.req.id', context.req.id);
     const userId = context.req.user.id;
     return await this.articleService.create(createArticleInput, userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => ArticleEntity)
+  async updateArticle(
+    @Context() context,
+    @Args('articleId', { type: () => Int }) articleId: number,
+    @Args('updateArticleInput') updateArticleInput: UpdateArticleInput,
+  ) {
+    const userId = context.req.user.id;
+
+    return this.articleService.update(articleId, updateArticleInput, userId);
   }
 }

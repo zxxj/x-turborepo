@@ -2,6 +2,7 @@ import { fetchArticleById } from '@/service/article';
 import { formatDateTime } from '@/lib/formatDate';
 import { Clock } from 'lucide-react';
 import MyEditor from '@/components/editor';
+import PublishAndUpdate from '../publishAndUpdate';
 
 interface Props {
   params: Promise<{
@@ -20,6 +21,13 @@ const ArticlePage = async ({ params }: Props) => {
         <div className="flex justify-center items-center text-sm mt-4">
           <Clock className="w-4 h-4 mr-2" />
           {formatDateTime(article.createTime)}
+
+          <PublishAndUpdate
+            value={JSON.parse(article.content)}
+            title={article.title}
+            slug={article.slug}
+            articleId={article.id}
+          />
         </div>
 
         <MyEditor value={JSON.parse(article.content)} />

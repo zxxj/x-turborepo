@@ -22,7 +22,6 @@ export default function MyPublishEditor({ value }: EditorType) {
       <EditorContainer>
         <Editor variant="demo" readOnly />
       </EditorContainer>
-
       <SettingsDialog />
     </Plate>
   );
