@@ -43,6 +43,7 @@ type EditorType = {
   title?: string;
   slug?: string;
   articleId?: number;
+  isLogin: boolean;
 };
 
 const publishAndUpdatePage = ({
@@ -50,8 +51,8 @@ const publishAndUpdatePage = ({
   title,
   slug,
   articleId,
+  isLogin,
 }: EditorType) => {
-  const [text, setText] = useState('publish');
   const [visible, setVisible] = useState(false);
   const initialValue: Value = [
     {
@@ -74,7 +75,6 @@ const publishAndUpdatePage = ({
   // 编辑文章
   useEffect(() => {
     if (value) {
-      setText('update');
       setEditorValue(value);
       form.setValue('title', title as string);
       form.setValue('slug', slug as string);
@@ -119,26 +119,32 @@ const publishAndUpdatePage = ({
     if (!value) {
       setEditorValue([]);
       form.reset();
-      setText('publish');
     }
   };
   return (
     <>
       <Drawer onClose={onDrawerClose} open={visible} onOpenChange={setVisible}>
         <DrawerTrigger asChild>
-          <Button variant="ghost" className="flex items-center cursor-pointer">
-            <SquarePen />
-            {text}
-          </Button>
+          {isLogin ? (
+            <Button
+              variant="ghost"
+              className="flex items-center cursor-pointer"
+            >
+              <SquarePen />
+              update
+            </Button>
+          ) : (
+            ''
+          )}
         </DrawerTrigger>
         <DrawerContent>
-          <div className="mx-auto overflow-auto w-full px-10">
+          <div className="mx-auto  w-full h-full">
             <DrawerHeader>
               <DrawerTitle>create new article</DrawerTitle>
               <DrawerDescription>create your article.</DrawerDescription>
             </DrawerHeader>
 
-            <div>
+            <div className="px-10">
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}

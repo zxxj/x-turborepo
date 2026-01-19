@@ -3,6 +3,7 @@ import { formatDateTime } from '@/lib/formatDate';
 import { Clock } from 'lucide-react';
 import MyEditor from '@/components/editor';
 import PublishAndUpdate from '../publishAndUpdate';
+import { getToken } from '@/app/auth/auth';
 
 interface Props {
   params: Promise<{
@@ -11,6 +12,9 @@ interface Props {
 }
 
 const ArticlePage = async ({ params }: Props) => {
+  const tokenCookie = await getToken();
+  const isLogin = tokenCookie?.value ? true : false; // 未登录则不显示更新文章按钮.
+
   const articleId = (await params).id;
   const article = await fetchArticleById(Number(articleId));
 
@@ -27,6 +31,7 @@ const ArticlePage = async ({ params }: Props) => {
             title={article.title}
             slug={article.slug}
             articleId={article.id}
+            isLogin={isLogin}
           />
         </div>
 
