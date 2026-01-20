@@ -43,7 +43,7 @@ type EditorType = {
   title?: string;
   slug?: string;
   articleId?: number;
-  isLogin: boolean;
+  isLogin?: boolean;
 };
 
 const publishAndUpdatePage = ({
