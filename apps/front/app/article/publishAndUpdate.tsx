@@ -96,7 +96,7 @@ const publishAndUpdatePage = ({
           slug: values.slug,
           content: JSON.stringify(editorValue),
         });
-        toast.error(`文章创建成功!`, { position: 'top-center' });
+        toast.success(`文章创建成功!`, { position: 'top-center' });
       } else {
         // 更新文章
         await updateArticle(articleId as number, {

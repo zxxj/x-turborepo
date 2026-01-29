@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'; // 拒绝静态化(创建文章按钮必须根据登录状态处理)
+
 import NavLinks from './nav-links-client';
 import { AnimatedThemeToggler } from '@/components/ui/animated-theme-toggler';
 import { cookies } from 'next/headers';
@@ -7,7 +9,7 @@ import SignOutButton from '@/app/auth/signOut-button';
 
 export default async function Navbar() {
   const cookieStore = await cookies();
-  console.log(cookieStore);
+  // console.log(cookieStore);
   const isLogin = cookieStore.has('access_token');
 
   return (
