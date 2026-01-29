@@ -44,6 +44,7 @@ type EditorType = {
   slug?: string;
   articleId?: number;
   isLogin?: boolean;
+  btnText: string;
 };
 
 const publishAndUpdatePage = ({
@@ -52,6 +53,7 @@ const publishAndUpdatePage = ({
   slug,
   articleId,
   isLogin,
+  btnText,
 }: EditorType) => {
   const [visible, setVisible] = useState(false);
   const initialValue: Value = [
@@ -131,7 +133,7 @@ const publishAndUpdatePage = ({
               className="flex items-center cursor-pointer"
             >
               <SquarePen />
-              update
+              {btnText}
             </Button>
           ) : (
             ''

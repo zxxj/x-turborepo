@@ -27,6 +27,7 @@ const ArticlePage = async ({ params }: Props) => {
           {formatDateTime(article.createTime)}
 
           <PublishAndUpdate
+            btnText="update"
             value={JSON.parse(article.content)}
             title={article.title}
             slug={article.slug}

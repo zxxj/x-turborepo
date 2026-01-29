@@ -16,7 +16,7 @@ export default async function Navbar() {
 
       <div className="flex items-center lg:gap-2">
         <NavLinks />
-        {isLogin ? <PublishAndUpdate /> : ''}
+        <PublishAndUpdate isLogin={isLogin} btnText="publish" />
         {isLogin ? <SignOutButton /> : <SignInButton />}
         <AnimatedThemeToggler className="cursor-pointer" />
       </div>
