@@ -65,4 +65,13 @@ export class ArticleService {
       },
     });
   }
+
+  // 删除文章
+  async delete(articleId: number, userId: number) {
+    return this.prisma.article.delete({
+      where: {
+        id: articleId,
+      },
+    });
+  }
 }

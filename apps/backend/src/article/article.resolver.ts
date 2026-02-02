@@ -52,4 +52,15 @@ export class ArticleResolver {
 
     return this.articleService.update(articleId, updateArticleInput, userId);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => ArticleEntity)
+  async deleteArticle(
+    @Args('articleId', { type: () => Int }) articleId: number,
+    @Context() context,
+  ) {
+    const userId = context.req.user.id;
+    console.log('delete', userId, articleId);
+    return this.articleService.delete(articleId, userId);
+  }
 }
