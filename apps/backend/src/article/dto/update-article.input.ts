@@ -7,7 +7,7 @@ export class UpdateArticleInput {
   title: string;
 
   @Field(() => String, { nullable: true })
-  slug: string;
+  description: string;
 
   @Field(() => String)
   content: string;

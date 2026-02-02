@@ -13,7 +13,7 @@ export class ArticleEntity {
   title: string;
 
   @Field(() => String, { nullable: true })
-  slug?: string;
+  description?: string;
 
   @Field(() => String, { nullable: true })
   thumbnail?: string;

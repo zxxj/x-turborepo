@@ -44,7 +44,7 @@ type TagEntity {
 type ArticleEntity {
   id: Int!
   title: String
-  slug: String
+  description: String
   thumbnail: String
   content: String!
   published: Boolean!
@@ -73,6 +73,7 @@ type Query {
 type Mutation {
   createArticle(createArticleInput: CreateArticleInput!): ArticleEntity!
   updateArticle(articleId: Int!, updateArticleInput: UpdateArticleInput!): ArticleEntity!
+  deleteArticle(articleId: Int!): ArticleEntity!
   createUser(createUserInput: CreateUserInput!): UserEntity!
   createTag(createTagInput: CreateTagInput!): TagEntity!
   updateTag(updateTagInput: UpdateTagInput!): TagEntity!
@@ -82,7 +83,7 @@ type Mutation {
 
 input CreateArticleInput {
   title: String!
-  slug: String
+  description: String
   content: String!
   thumbnail: String
   published: Boolean
@@ -90,7 +91,7 @@ input CreateArticleInput {
 
 input UpdateArticleInput {
   title: String!
-  slug: String
+  description: String
   content: String!
   thumbnail: String
   published: Boolean

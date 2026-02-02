@@ -17,9 +17,9 @@ CREATE TABLE `User` (
 -- CreateTable
 CREATE TABLE `Article` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `slug` VARCHAR(191) NULL,
+    `description` LONGTEXT NOT NULL,
     `title` VARCHAR(191) NOT NULL,
-    `content` VARCHAR(191) NOT NULL,
+    `content` LONGTEXT NOT NULL,
     `thumbnail` VARCHAR(191) NULL,
     `published` BOOLEAN NOT NULL DEFAULT true,
     `authorId` INTEGER NOT NULL,
