@@ -4,6 +4,7 @@ import { Clock } from 'lucide-react';
 import MyEditor from '@/components/editor';
 import PublishAndUpdate from '../publishAndUpdate';
 import { getToken } from '@/app/auth/auth';
+import DeleteBtn from '../deleteBtn';
 
 interface Props {
   params: Promise<{
@@ -30,10 +31,12 @@ const ArticlePage = async ({ params }: Props) => {
             btnText="update"
             value={JSON.parse(article.content)}
             title={article.title}
-            slug={article.slug}
+            description={article.description}
             articleId={article.id}
             isLogin={isLogin}
           />
+
+          <DeleteBtn articleId={Number(articleId)} isLogin={isLogin} />
         </div>
 
         <MyEditor value={JSON.parse(article.content)} />

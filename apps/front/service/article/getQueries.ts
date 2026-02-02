@@ -4,7 +4,7 @@ export const GET_ARTICLE_LIST = gql`
   query ($pageNumber: Float, $pageSize: Float) {
     articles(pageNumber: $pageNumber, pageSize: $pageSize) {
       id
-      slug
+      description
       title
       content
       thumbnail
@@ -22,7 +22,7 @@ export const GET_ARTICLE_BY_ID = gql`
     getArticleById(id: $id) {
       id
       title
-      slug
+      description
       content
       thumbnail
       published
@@ -44,7 +44,7 @@ export const CREATE_ARTICLE = gql`
   mutation CreateArticle($createArticleInput: CreateArticleInput!) {
     createArticle(createArticleInput: $createArticleInput) {
       title
-      slug
+      description
       content
     }
   }
@@ -61,8 +61,16 @@ export const UPDATE_ARTICLE = gql`
     ) {
       id
       title
-      slug
+      description
       content
+    }
+  }
+`;
+
+export const DELETE_ARTICLE = gql`
+  mutation DeleteArticle($articleId: Int!) {
+    deleteArticle(articleId: $articleId) {
+      id
     }
   }
 `;

@@ -47,8 +47,8 @@ const ArticleSection = ({
             {item.title}
           </h2>
 
-          <p className="mr-0 lg:mr-40 my-4 text-[#8b919e] text-sm ">
-            {item.slug}
+          <p className="mr-0 lg:mr-40 my-4 text-[#8b919e] text-sm line-clamp-2 md:line-clamp-3">
+            {item.description}
           </p>
           <InteractiveHoverButton onClick={() => handleClick(item.id)}>
             read more

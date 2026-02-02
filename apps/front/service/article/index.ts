@@ -4,6 +4,7 @@ import { print } from 'graphql';
 import { fetchGraphQL } from '../fetchGraphQL';
 import {
   CREATE_ARTICLE,
+  DELETE_ARTICLE,
   GET_ARTICLE_BY_ID,
   GET_ARTICLE_LIST,
   UPDATE_ARTICLE,
@@ -33,7 +34,7 @@ export const fetchArticleById = async (id: number) => {
 
 interface CreateArticleType {
   title: string;
-  slug?: string;
+  description?: string;
   content: string;
 }
 export const createArticle = async (createArticleInput: CreateArticleType) => {
@@ -46,7 +47,7 @@ export const createArticle = async (createArticleInput: CreateArticleType) => {
 
 interface UpdateArticleType {
   title: string;
-  slug?: string;
+  description?: string;
   content: string;
 }
 export const updateArticle = async (
@@ -59,4 +60,12 @@ export const updateArticle = async (
   });
 
   return data;
+};
+
+export const deleteArticle = async (articleId: number) => {
+  const res = await fetchGraphQL(print(DELETE_ARTICLE), {
+    articleId,
+  });
+
+  return res;
 };

@@ -32,7 +32,7 @@ import { createArticle, updateArticle } from '@/service/article';
 
 const schema = z.object({
   title: z.string().min(6, '文章标题至少6位!'),
-  slug: z.string(),
+  description: z.string(),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -41,7 +41,7 @@ type FormValues = z.infer<typeof schema>;
 type EditorType = {
   value?: Value;
   title?: string;
-  slug?: string;
+  description?: string;
   articleId?: number;
   isLogin?: boolean;
   btnText: string;
@@ -50,7 +50,7 @@ type EditorType = {
 const publishAndUpdatePage = ({
   value,
   title,
-  slug,
+  description,
   articleId,
   isLogin,
   btnText,
@@ -70,7 +70,7 @@ const publishAndUpdatePage = ({
     resolver: zodResolver(schema),
     defaultValues: {
       title: '',
-      slug: '',
+      description: '',
     },
   });
 
@@ -79,7 +79,7 @@ const publishAndUpdatePage = ({
     if (value) {
       setEditorValue(value);
       form.setValue('title', title as string);
-      form.setValue('slug', slug as string);
+      form.setValue('description', description as string);
     } else {
       setEditorValue(initialValue);
       form.reset();
@@ -93,7 +93,7 @@ const publishAndUpdatePage = ({
         // 创建文章
         await createArticle({
           title: values.title,
-          slug: values.slug,
+          description: values.description,
           content: JSON.stringify(editorValue),
         });
         toast.success(`文章创建成功!`, { position: 'top-center' });
@@ -101,7 +101,7 @@ const publishAndUpdatePage = ({
         // 更新文章
         await updateArticle(articleId as number, {
           title: values.title,
-          slug: values.slug,
+          description: values.description,
           content: JSON.stringify(editorValue),
         });
         toast.error(`文章更新成功!`, { position: 'top-center' });
@@ -171,10 +171,10 @@ const publishAndUpdatePage = ({
 
                     <FormField
                       control={form.control}
-                      name="slug"
+                      name="description"
                       render={({ field }) => (
                         <FormItem className="flex items-center">
-                          <FormLabel>slug</FormLabel>
+                          <FormLabel>description</FormLabel>
                           <div className="flex-1">
                             <FormControl>
                               <Textarea {...field} className="lg:w-96" />
